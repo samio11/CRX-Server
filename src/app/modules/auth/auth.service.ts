@@ -7,6 +7,8 @@ import bcrypt from "bcrypt";
 const userLogin = async (payload: { email: string; password: string }) => {
   const existUser = await User.findOne({ email: payload.email });
   if (!existUser) throw new AppError(401, "User is not found");
+  if (existUser.isVerified === false)
+    throw new AppError(401, "Please wait for admin approval");
   const passwordMatch = await bcrypt.compare(
     payload.password,
     existUser.password
