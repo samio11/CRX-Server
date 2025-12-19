@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Booking Confirmed</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background:#f1f5f9; padding:20px;">
+  <div style="
+    max-width:600px;
+    margin:auto;
+    background:#ffffff;
+    padding:24px;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  ">
+
+    <h2 style="color:#0f172a; margin-bottom:10px;">
+      🚗 Car Booking Confirmed
+    </h2>
+
+    <p>Hello,</p>
+
+    <p>
+      Your car booking has been <strong>successfully confirmed</strong>.
+      Below are your rental details:
+    </p>
+
+    <hr style="margin:20px 0;" />
+
+    <table style="width:100%; border-collapse:collapse;">
+      <tr>
+        <td style="padding:8px 0;"><strong>Car Name</strong></td>
+        <td style="padding:8px 0;">: <%= car %></td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px 0;"><strong>Rental Duration</strong></td>
+        <td style="padding:8px 0;">: <%= days %> day(s)</td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px 0;"><strong>End Date</strong></td>
+        <td style="padding:8px 0;">: <%= endDate %></td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px 0;"><strong>Total Price</strong></td>
+        <td style="padding:8px 0;">: ৳ <%= price %></td>
+      </tr>
+    </table>
+
+    <hr style="margin:20px 0;" />
+
+    <p style="color:#334155;">
+      Please return the car on or before the end date to avoid any extra charges.
+    </p>
+
+    <p style="margin-top:24px;">
+      Thank you for choosing us 🙏 <br/>
+      <strong>CRX-Car Rental Team</strong>
+    </p>
+
+  </div>
+</body>
+</html>
