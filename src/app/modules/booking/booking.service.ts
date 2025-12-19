@@ -7,6 +7,7 @@ import { priceByDays } from "./pricePerDay";
 import { calculateDays } from "./calculateDays";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { User } from "../user/user.model";
+import { generateTransectionId } from "../../utils/generateTransectionId";
 
 const createBooking = async (userId: string, payload: any) => {
   const user = await User.findById(userId);
@@ -124,10 +125,26 @@ const getBookingByUser = async (userId: string) => {
   return existBooking;
 };
 
+const completeBooking = async (bookingId: string, userId: string) => {
+  const booking = await Booking.findOne({ _id: bookingId, user: userId });
+  if (!booking) throw new AppError(404, "Booking not found");
+  if (booking.status === EBookingStatus.cancelled)
+    throw new AppError(401, "Booking is already canceled");
+
+  booking.status = EBookingStatus.completed;
+  booking.paymentIntentId = await generateTransectionId();
+  await booking.save();
+
+  await Car.findByIdAndUpdate(booking.car, { isAvailable: true });
+
+  return booking;
+};
+
 export const BookingServices = {
   createBooking,
   cancelBooking,
   getAllBooking,
   getABooking,
   getBookingByUser,
+  completeBooking,
 };

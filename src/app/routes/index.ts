@@ -3,6 +3,7 @@ import { authRoutes } from "../modules/auth/auth.routes";
 import { userRoutes } from "../modules/user/user.routes";
 import { carRoutes } from "../modules/car/car.routes";
 import { BookingRoutes } from "../modules/booking/booking.routes";
+import { AdminRoutes } from "../modules/analysis/analysis.routes";
 
 export const rootRouter = Router();
 
@@ -22,6 +23,10 @@ const excludingModule = [
   {
     path: "/booking",
     element: BookingRoutes,
+  },
+  {
+    path: "/analysis",
+    element: AdminRoutes,
   },
 ];
 

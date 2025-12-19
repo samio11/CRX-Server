@@ -22,7 +22,18 @@ const cancelBooking = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: 200,
-    message: "User Delete Car",
+    message: "Booking Cancel Done",
+    data: result,
+  });
+});
+const completeBooking = catchAsync(async (req, res) => {
+  const bookingId = req.params.id;
+  const { id } = req.user;
+  const result = await BookingServices.completeBooking(bookingId, id);
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Booking Completed",
     data: result,
   });
 });
@@ -65,4 +76,5 @@ export const BookingController = {
   getAllBooking,
   getABooking,
   getBookingByUser,
+  completeBooking,
 };

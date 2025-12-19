@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.carRoutes = void 0;
+const express_1 = require("express");
+const checkAuth_1 = require("../../config/checkAuth");
+const user_interface_1 = require("../user/user.interface");
+const parseFormData_1 = require("../../middlewares/parseFormData");
+const multer_config_1 = require("../../config/multer.config");
+const car_controller_1 = require("./car.controller");
+const router = (0, express_1.Router)();
+router.post("/", (0, checkAuth_1.checkAuth)([user_interface_1.ERole.admin]), multer_config_1.multerUpload.single("file"), parseFormData_1.parseFormData, car_controller_1.carController.createCar);
+router.get("/", car_controller_1.carController.getAllCars);
+router.get("/:carId", car_controller_1.carController.getCarById);
+router.patch("/:carId", (0, checkAuth_1.checkAuth)([user_interface_1.ERole.admin]), car_controller_1.carController.updateCar);
+router.patch("/update-available/:carId", (0, checkAuth_1.checkAuth)([user_interface_1.ERole.admin]), car_controller_1.carController.updateCarAvailability);
+router.delete("/:carId", (0, checkAuth_1.checkAuth)([user_interface_1.ERole.admin]), car_controller_1.carController.deleteCar);
+exports.carRoutes = router;

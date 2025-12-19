@@ -20,7 +20,7 @@ const config_1 = __importDefault(require("../../config"));
 const userSchema = new mongoose_1.Schema({
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true },
-    password: { type: String, required: true, select: false },
+    password: { type: String, required: true },
     phone: { type: String, required: true },
     address: { type: String, required: true },
     role: {
@@ -33,6 +33,9 @@ const userSchema = new mongoose_1.Schema({
     },
     isVerified: { type: Boolean, default: true },
     profileImage: { type: String },
+}, {
+    versionKey: false,
+    timestamps: true,
 });
 userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -42,7 +45,6 @@ userSchema.pre("save", function (next) {
 userSchema.post("save", function (doc, next) {
     return __awaiter(this, void 0, void 0, function* () {
         doc.password = "";
-        next();
     });
 });
 exports.User = (0, mongoose_1.model)("User", userSchema);
