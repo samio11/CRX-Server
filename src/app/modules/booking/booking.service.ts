@@ -114,12 +114,16 @@ const getAllBooking = async (query: Record<string, string>) => {
 };
 
 const getABooking = async (bookingId: string) => {
-  const existUser = await Booking.findById(bookingId);
+  const existUser = await Booking.findById(bookingId)
+    .populate("car")
+    .populate("user");
   return existUser;
 };
 
 const getBookingByUser = async (userId: string) => {
-  const existBooking = await Booking.find({ user: userId });
+  const existBooking = await Booking.find({ user: userId })
+    .populate("car")
+    .populate("user");
   if (!existBooking)
     throw new AppError(401, "This User Does not have any booking");
   return existBooking;

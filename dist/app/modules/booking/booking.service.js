@@ -112,11 +112,15 @@ const getAllBooking = (query) => __awaiter(void 0, void 0, void 0, function* () 
     return { data, meta };
 });
 const getABooking = (bookingId) => __awaiter(void 0, void 0, void 0, function* () {
-    const existUser = yield booking_model_1.Booking.findById(bookingId);
+    const existUser = yield booking_model_1.Booking.findById(bookingId)
+        .populate("car")
+        .populate("user");
     return existUser;
 });
 const getBookingByUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const existBooking = yield booking_model_1.Booking.find({ user: userId });
+    const existBooking = yield booking_model_1.Booking.find({ user: userId })
+        .populate("car")
+        .populate("user");
     if (!existBooking)
         throw new AppError_1.AppError(401, "This User Does not have any booking");
     return existBooking;
